@@ -1,47 +1,32 @@
 import java.util.*
 
-/*val timer = Timer()
-val delay:Long = 1000
-val period:Long = 1000
-var segundos = 10
+val longitudCircuito = 7
+val delayCarrera:Long = 1000
+val periodoCarrera:Long = 2000
+var segundosCarrera = longitudCircuito
+var ganador = ""
 
 fun main() {
-    var n = 0
-
-    val task = object : TimerTask() {
-        override fun run() {
-            println(intervalo())
-        }
-    }
-
-    timer.scheduleAtFixedRate(task, delay, period)
-
-}
-
-fun intervalo ():Int{
-    if (segundos==1)
-        timer.cancel()
-    return segundos--
-}*/
-
-fun main() {
-
-    var n = 0
-    val carrera = object : TimerTask() {
-        override fun run() {
-            mostrarCarrera()
-        }
-    }
-
-    val longitudCircuito = 7
 
     var circuitos = crearCarrera(longitudCircuito)
 
-    timer.scheduleAtFixedRate(carrera, delay, period)
+
+    val carrera = object : TimerTask() {
+        override fun run() {
+            var circutiosEnMovimiento=(mostrarCarrera(circuitos))
+            println(circutiosEnMovimiento["jugador1"])
+            println(circutiosEnMovimiento["jugador2"])
+            println("++++++++++++++++++++++++++++++")
+            if (ganador != "")
+                println(ganador)
+        }
+    }
+
+    timer.scheduleAtFixedRate(carrera, delayCarrera, periodoCarrera)
 
 }
 
-fun crearCarrera(longitudCircuito: Int): Map<String, String> {
+fun crearCarrera(longitudCircuito: Int): MutableMap<String, String> {
 
 
     val longitud = longitudCircuito
@@ -76,10 +61,58 @@ fun crearCarrera(longitudCircuito: Int): Map<String, String> {
     circuito1 += "1"
     circuito2 += "2"
 
-    return mapOf("jugador1" to circuito1, "jugador2" to circuito2)
+    return mutableMapOf("jugador1" to circuito1, "jugador2" to circuito2)
 
 }
 
-fun mostrarCarrera(){
+fun mostrarCarrera(circuitos: MutableMap<String, String>): MutableMap<String, String> {
 
+    var circuito1 = (circuitos["jugador1"].toString()).substring(0,longitudCircuito)
+    var circuito2 = (circuitos["jugador2"].toString()).substring(0,longitudCircuito)
+
+    var movimiento1 = (Math.random()*2+1).toInt()
+    var movimiento2 = (Math.random()*2+1).toInt()
+
+    if (movimiento1 == 1) {
+        if (circuito1[segundosCarrera - 1] == 'A') {
+            circuito1 += "X"
+        } else if (circuito1[segundosCarrera - 1] == 'M'){
+            ganador = "Gana piloto 1"
+        } else {
+            circuito1 += "1"
+        }
+    } else {
+        if (circuito1[segundosCarrera - 2] == 'A') {
+            circuito1 += "X"
+        } else if (circuito1[segundosCarrera - 1] == 'M'){
+            ganador = "Gana piloto 1"
+        } else {
+            circuito1 += "1"
+        }
+    }
+
+    if (movimiento2 == 1) {
+        if (circuito2[segundosCarrera - 1] == 'A') {
+            circuito2 += "X"
+        } else if (circuito2[segundosCarrera - 1] == 'M'){
+            ganador = "Gana piloto 2"
+        } else {
+            circuito2 += "2"
+        }
+    } else {
+        if (circuito2[segundosCarrera - 2] == 'A') {
+            circuito2 += "X"
+        } else if (circuito2[segundosCarrera - 1] == 'M'){
+            ganador = "Gana piloto 2"
+        } else {
+            circuito2 += "2"
+        }
+    }
+
+    segundosCarrera--
+
+    if (segundosCarrera == 0 || ganador != "")
+        timer.cancel()
+
+    return mutableMapOf("jugador1" to circuito1, "jugador2" to circuito2)
 }
