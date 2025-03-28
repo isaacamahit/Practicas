@@ -1,9 +1,9 @@
 fun main() {
 
-    val numeros = listOf(1,2,2,3,3,4,5,10,15,222,50,35,8)
+    val numeros = listOf(1,2,3,3,4,5,10,15,222,50,35,8)
 
     println("moda")
-    //println(moda(numeros))
+    println(moda(numeros))
     println("media")
     println(media(numeros))
     println("mediana")
@@ -11,16 +11,29 @@ fun main() {
 
 }
 
-/*fun moda (numeros: List<Int>): ArrayList<Int> {
+fun moda (numeros: List<Int>): Int {
 
-    val modas = (numeros.groupingBy { it }.eachCount().filter { it.value > 1 })
+    val n = numeros.size
+    var contadorMaximo = 0
+    var mayor = 0
 
+    for (i in 0..<n) {
 
+        var contador = 0
 
+        for (j in 0..<n) {
+            if (numeros[i] == numeros[j]) contador++
+        }
 
-    return modas
+        if (contador > contadorMaximo || (contador == contadorMaximo && numeros[i] > mayor)) {
+            contadorMaximo = contador
+            mayor = numeros[i]
+        }
+    }
 
-}*/
+    return mayor
+
+}
 
 fun media (numeros: List<Int>): Int {
 

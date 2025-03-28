@@ -1,19 +1,24 @@
 import java.util.*
 
-fun main() {
-    val timer = Timer()
-    val delay:Long = 0
-    val tiempoTotal:Long = 10000
-    var n = 0
+val timer = Timer()
+val delay:Long = 1000
+val period:Long = 2000
+var segundos = 3
 
-    val task = object : TimerTask() {
+fun main() {
+
+    val mostrarSegundos = object : TimerTask() {
         override fun run() {
-            n+=1
-            println(n)
+            println(intervalo())
         }
     }
 
-    timer.scheduleAtFixedRate(task, delay, tiempoTotal)
-    Thread.sleep(tiempoTotal)
-    timer.cancel()
+    timer.scheduleAtFixedRate(mostrarSegundos, delay, period)
+
+}
+
+fun intervalo ():Int{
+    if (segundos==0)
+        timer.cancel()
+    return segundos--
 }

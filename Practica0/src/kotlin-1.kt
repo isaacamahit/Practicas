@@ -1,6 +1,7 @@
 fun main() {
+
     println("Introduce un número")
-    val numeroIntroducir = readLine()!!.toInt()
+    val numeroIntroducir = readln().toInt()
     println(numeroIntroducir)
     val numeroRevertido = invertirNumero(numeroIntroducir)
     println(numeroRevertido)

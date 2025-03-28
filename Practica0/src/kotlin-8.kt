@@ -1,6 +1,6 @@
 fun main() {
 
-    val escalones = 5
+    val escalones = 0
 
     crearEscalera(escalones)
 
