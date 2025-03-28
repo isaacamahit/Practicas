@@ -14,6 +14,7 @@ fun main() {
     val carrera = object : TimerTask() {
         override fun run() {
             var circutiosEnMovimiento=(mostrarCarrera(circuitos))
+            println("++++++++++++++++++++++++++++++")
             println(circutiosEnMovimiento["jugador1"])
             println(circutiosEnMovimiento["jugador2"])
             println("++++++++++++++++++++++++++++++")
